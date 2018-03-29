@@ -1,0 +1,9 @@
+{
+	"mongo": {
+		"host": "localhost",
+		"database": "package"
+	},
+	"server": {
+		"port": 8080
+	}
+}
