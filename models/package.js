@@ -8,7 +8,11 @@ const schema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-  	},
+	},
+	unlocked: {
+		type: Boolean,
+		default: false,
+	},
 	owner: mongoose.Schema.Types.ObjectId
 })
 

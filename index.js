@@ -36,6 +36,13 @@ app.get('/', (req, res) => {
 					"/packages",
 					"/packages/:id",	
 				]
+			},
+			{
+				method: "POST",
+				endpoints: [
+					"/packages/:id/lock",
+					"/packages/:id/unlock",					
+				]
 			}
 		]
 	})
@@ -47,6 +54,9 @@ app.get('/users/:uid/packages', PackageHandler.getAllByUser)
 
 app.get('/packages', PackageHandler.getAll)
 app.get('/packages/:id', PackageHandler.get)
+app.post('/packages/:id/lock', PackageHandler.lock)
+app.post('/packages/:id/unlock', PackageHandler.unlock)
+
 
 
 /*app.get('/test', (req, res) => {

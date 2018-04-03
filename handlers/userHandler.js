@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 module.exports.get =
 	(req, res) => {
-		User.find({ _id: req.params.id }, (err, user) => {
+		User.findOne({ _id: req.params.id }, (err, user) => {
 			if (err) return console.error(err)
 
 			res.json({
