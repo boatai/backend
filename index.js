@@ -26,6 +26,18 @@ db.once('open', () => {
 app.get('/', (req, res) => {
 	res.json({
 		success: true,
+		endpoints: [
+			{
+				method: "GET",
+				endpoints: [
+					"/users",
+					"/users/:id",
+					"/users/:id/packages",
+					"/packages",
+					"/packages/:id",	
+				]
+			}
+		]
 	})
 })
 
