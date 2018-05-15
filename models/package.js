@@ -13,7 +13,10 @@ const schema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-	owner: mongoose.Schema.Types.ObjectId
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+	},
 })
 
 module.exports = mongoose.model('package', schema);

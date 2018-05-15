@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 const UserHandler = require('./handlers/userHandler')
 const PackageHandler = require('./handlers/packageHandler')
@@ -22,6 +23,8 @@ db.once('open', () => {
 	console.info('Connected to the mongodb database!')
 })
 
+app.use(bodyParser.json())
+
 // routes
 app.get('/', (req, res) => {
 	res.json({
@@ -40,8 +43,10 @@ app.get('/', (req, res) => {
 			{
 				method: "POST",
 				endpoints: [
+					"/packages",					
 					"/packages/:id/lock",
-					"/packages/:id/unlock",					
+					"/packages/:id/unlock",
+					"/packages/:id/assign"		
 				]
 			}
 		]
@@ -54,10 +59,10 @@ app.get('/users/:uid/packages', PackageHandler.getAllByUser)
 
 app.get('/packages', PackageHandler.getAll)
 app.get('/packages/:id', PackageHandler.get)
+app.post('/packages', PackageHandler.create)
 app.post('/packages/:id/lock', PackageHandler.lock)
 app.post('/packages/:id/unlock', PackageHandler.unlock)
-
-
+app.post('/packages/:id/assign', PackageHandler.assign)
 
 /*app.get('/test', (req, res) => {
 	const user = new User({
