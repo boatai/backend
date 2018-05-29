@@ -13,6 +13,18 @@ const schema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	size: {
+		type: String,
+		default: "20 x 20 x 10 cm",
+	},
+	weight: {
+		type: String,
+		default: "400g",
+	},
+	deliveryDate: {
+		type: Date,
+		default: Date.now,
+	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
