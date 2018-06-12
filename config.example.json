@@ -4,6 +4,7 @@
 		"database": "package"
 	},
 	"server": {
-		"port": 8080
+		"port": 8080,
+		"socket": 8880		
 	}
 }

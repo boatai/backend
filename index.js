@@ -4,7 +4,10 @@ const bodyParser = require('body-parser')
 
 const UserHandler = require('./handlers/userHandler')
 const PackageHandler = require('./handlers/packageHandler')
+const RouteHandler = require('./handlers/route')
 
+const WebsocketServer = require('./handlers/socket/socket')
+const LocationSocket = require('./handlers/socket/location')
 const Package = require('./models/package')
 
 const config = require('./config.json')
@@ -13,6 +16,8 @@ const app = express()
 
 mongoose.connect(`mongodb://${config.mongo.host}/${config.mongo.database}`)
 const db = mongoose.connection
+
+const socket = new WebsocketServer(config.server.socketPort);
 
 // handle mongoose events
 db.on('error', (err) => {
@@ -37,7 +42,8 @@ app.get('/', (req, res) => {
 					"/users/:id",
 					"/users/:id/packages",
 					"/packages",
-					"/packages/:id",	
+					"/packages/:id",
+					"/route"
 				]
 			},
 			{
@@ -46,7 +52,8 @@ app.get('/', (req, res) => {
 					"/packages",					
 					"/packages/:id/lock",
 					"/packages/:id/unlock",
-					"/packages/:id/assign"		
+					"/packages/:id/assign",
+					"/route"
 				]
 			}
 		]
@@ -64,21 +71,12 @@ app.post('/packages/:id/lock', PackageHandler.lock)
 app.post('/packages/:id/unlock', PackageHandler.unlock)
 app.post('/packages/:id/assign', PackageHandler.assign)
 
-/*app.get('/test', (req, res) => {
-	const user = new User({
-		firstName: "nick",
-		lastName: "vernij",	
-		email: "nick@nickforall.nl",
-		lat: 0,
-		lng: 0,
-	})
-
-	user.save()
-		.then(() => res.json({user}))
-		.catch((err) => res.json({err, success: false}))
-})*/
+app.get('/route', RouteHandler.get)
+app.post('/route', RouteHandler.post)
 
 // start express
 app.listen(config.server.port, () => {
 	console.info(`API server is listening on ::${config.server.port}`)
 })
+
+// LocationSocket.startMockInterval(1000, socket)
