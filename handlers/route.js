@@ -1,5 +1,5 @@
 const jsonfile = require('jsonfile')
-const file = '/tmp/route.json'
+const file = __dirname + '/tmp/route.json'
 
 module.exports.get = 
 	(req, res, next) => {

@@ -17,7 +17,7 @@ const app = express()
 mongoose.connect(`mongodb://${config.mongo.host}/${config.mongo.database}`)
 const db = mongoose.connection
 
-const socket = new WebsocketServer(config.server.socketPort);
+// const socket = new WebsocketServer(config.server.socketPort);
 
 // handle mongoose events
 db.on('error', (err) => {
