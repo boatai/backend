@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const UserHandler = require('./handlers/userHandler')
 const PackageHandler = require('./handlers/packageHandler')
@@ -28,6 +29,7 @@ db.once('open', () => {
 	console.info('Connected to the mongodb database!')
 })
 
+app.use(cors())
 app.use(bodyParser.json())
 
 // routes
